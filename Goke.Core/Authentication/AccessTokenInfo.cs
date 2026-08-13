@@ -1,4 +1,4 @@
-﻿namespace Goke.Core.Models
+﻿namespace Goke.Core.Authentication
 {
     /// <summary>
     /// This class represents the information related to an access token.

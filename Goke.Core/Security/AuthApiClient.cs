@@ -1,10 +1,11 @@
 using System.Net.Http.Json;
 using System.Text.Json;
 using Microsoft.Extensions.Logging;
-using Goke.Core.Models;
 using System.Net.Http.Headers;
+using Goke.Core.Authentication;
+using Goke.Core.Services;
 
-namespace Goke.Core.Services;
+namespace Goke.Core.Security;
 
 public sealed class AuthApiClient(HttpClient httpClient, BackendApiEndpoints backend, ILogger<AuthApiClient> logger)
 {

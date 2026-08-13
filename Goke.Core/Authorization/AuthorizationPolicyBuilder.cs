@@ -1,6 +1,4 @@
-﻿using System.Security.Claims;
-
-namespace Goke.Core.Authorization
+﻿namespace Goke.Core.Authorization
 {
     public sealed class AuthorizationPolicyBuilder
     {

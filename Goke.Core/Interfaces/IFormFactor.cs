@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Goke.Core.Interfaces
+﻿namespace Goke.Core.Interfaces
 {
     public interface IFormFactor
     {

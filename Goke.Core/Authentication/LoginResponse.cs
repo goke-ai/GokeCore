@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Goke.Core.Models
+namespace Goke.Core.Authentication
 {
     /// <summary>
     /// This class is used to store the token information received from the server.

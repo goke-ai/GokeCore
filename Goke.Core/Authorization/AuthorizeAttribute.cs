@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Goke.Core.Authorization
+﻿namespace Goke.Core.Authorization
 {
     [AttributeUsage(AttributeTargets.Class, Inherited = true)]
     public class AuthorizeAttribute : Attribute

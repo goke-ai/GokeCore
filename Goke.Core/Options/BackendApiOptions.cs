@@ -1,4 +1,4 @@
-namespace Goke.Core.Services;
+namespace Goke.Core.Options;
 
 public sealed class BackendApiOptions
 {

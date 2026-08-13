@@ -1,4 +1,4 @@
-namespace Goke.Core.Models;
+namespace Goke.Core.Authentication;
 
 public sealed record AuthenticationResult(bool Succeeded, string? ErrorMessage = null)
 {

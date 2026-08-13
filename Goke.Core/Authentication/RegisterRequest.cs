@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Goke.Core.Models;
+namespace Goke.Core.Authentication;
 
 public class RegisterRequest
 {

@@ -1,8 +1,8 @@
+using Goke.Core.Authentication;
 using Goke.Core.Enums;
-using Goke.Core.Models;
 using System.Security.Claims;
 
-namespace Goke.Core.Interfaces;
+namespace Goke.Core.Security;
 
 public interface IAuthenticationService
 {

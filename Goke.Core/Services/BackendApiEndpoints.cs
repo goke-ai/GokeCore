@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Goke.Core.Options;
+using Microsoft.Extensions.Options;
 
 namespace Goke.Core.Services
 {

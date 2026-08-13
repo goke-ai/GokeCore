@@ -1,8 +1,5 @@
-﻿using Goke.Core.Models;
-using System;
-using System.Collections.Generic;
+﻿using Goke.Core.Authentication;
 using System.Security.Claims;
-using System.Text;
 
 namespace Goke.Core.Authorization
 {

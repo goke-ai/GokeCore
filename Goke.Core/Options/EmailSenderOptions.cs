@@ -1,4 +1,4 @@
-﻿namespace Goke.Core.Models
+﻿namespace Goke.Core.Options
 {
     public sealed class EmailSenderOptions
     {
