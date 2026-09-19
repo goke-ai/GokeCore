@@ -1,9 +1,9 @@
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json;
-using Microsoft.Extensions.Logging;
-using System.Net.Http.Headers;
 using Goke.Core.Authentication;
 using Goke.Core.Services;
+using Microsoft.Extensions.Logging;
 
 namespace Goke.Core.Security;
 
@@ -11,48 +11,50 @@ public sealed class AuthApiClient(HttpClient httpClient, BackendApiEndpoints bac
 {
     public async Task<LoginResponse?> LoginAsync(string email, string password, CancellationToken cancellationToken = default)
     {
-        try
+        var request = new LoginRequest
         {
-            using var response = await httpClient.PostAsJsonAsync(backend.LoginUri, new LoginRequest
-            {
-                Email = email,
-                Password = password
-            }, cancellationToken);
+            Email = email,
+            Password = password
+        };
 
-            if (!response.IsSuccessStatusCode)
-            {
-                logger.LogWarning("Remote login failed for {Email} with status code {StatusCode}.", email, response.StatusCode);
-                return null;
-            }
-
-            var result = await response.Content.ReadFromJsonAsync<LoginResponse>(cancellationToken: cancellationToken);
-            return result;
-        }
-        catch (HttpRequestException ex)
-        {
-            logger.LogError(ex, "Remote login request failed for {Email}.", email);
-            return null;
-        }
+        return await PostAsync<LoginRequest, LoginResponse>(
+            backend.LoginUri,
+            request,
+            "login",
+            email,
+            cancellationToken);
     }
 
     public async Task<string?> RegisterAsync(string email, string password, CancellationToken cancellationToken = default)
     {
         try
         {
-            using var response = await httpClient.PostAsJsonAsync(backend.RegisterUri, new LoginRequest
-            {
-                Email = email,
-                Password = password
-            }, cancellationToken);
+            using var response = await httpClient.PostAsJsonAsync(
+                backend.RegisterUri,
+                new RegisterRequest
+                {
+                    Email = email,
+                    Password = password,
+                    ConfirmPassword = password
+                },
+                cancellationToken);
 
             if (response.IsSuccessStatusCode)
             {
                 return null;
             }
 
-            var errorMessage = await ExtractErrorMessageAsync(response, cancellationToken);
-            logger.LogWarning("Remote registration failed for {Email} with status code {StatusCode}.", email, response.StatusCode);
-            return errorMessage;
+            logger.LogWarning(
+                "Remote registration failed for {Email} with status code {StatusCode}.",
+                email,
+                response.StatusCode);
+
+            return await ExtractErrorMessageAsync(response, cancellationToken);
+        }
+        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+        {
+            logger.LogWarning("Remote registration canceled for {Email}.", email);
+            return "Request canceled.";
         }
         catch (HttpRequestException ex)
         {
@@ -63,79 +65,113 @@ public sealed class AuthApiClient(HttpClient httpClient, BackendApiEndpoints bac
 
     public async Task<AuthenticatedUserResponse?> GetCurrentUserAsync(string accessToken, CancellationToken cancellationToken = default)
     {
-        try
-        {
-            using var request = new HttpRequestMessage(HttpMethod.Get, backend.MeUri);
-            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+        using var request = new HttpRequestMessage(HttpMethod.Get, backend.MeUri);
+        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
-            using var response = await httpClient.SendAsync(request, cancellationToken);
-
-            if (!response.IsSuccessStatusCode)
-            {
-                logger.LogWarning("Fetching current user failed with status code {StatusCode}.", response.StatusCode);
-                return null;
-            }
-
-            var result = await response.Content.ReadFromJsonAsync<AuthenticatedUserResponse>(cancellationToken: cancellationToken);
-            return result;
-        }
-        catch (OperationCanceledException ex) when (cancellationToken.IsCancellationRequested)
-        {
-            logger.LogWarning(ex, "Fetching current user was canceled.");
-            return null;
-        }
-        catch (TaskCanceledException ex)
-        {
-            logger.LogWarning(ex, "Fetching current user timed out or transport was canceled.");
-            return null;
-        }
-        catch (HttpRequestException ex)
-        {
-            logger.LogError(ex, "Fetching current user failed.");
-            return null;
-        }
+        return await SendAsync<AuthenticatedUserResponse>(
+            request,
+            "fetch current user",
+            cancellationToken);
     }
 
-    // Additional methods for logout, token refresh, etc., can be added here as needed.
     public async Task<bool> LogoutAsync(string accessToken, CancellationToken cancellationToken = default)
     {
-        try
-        {
-            using var request = new HttpRequestMessage(HttpMethod.Post, backend.LogoutUri);
-            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-            using var response = await httpClient.SendAsync(request, cancellationToken);
-            if (!response.IsSuccessStatusCode)
-            {
-                logger.LogWarning("Remote logout failed with status code {StatusCode}.", response.StatusCode);
-                return false;
-            }
-            return true;
-        }
-        catch (HttpRequestException ex)
-        {
-            logger.LogError(ex, "Remote logout request failed.");
-            return false;
-        }
+        using var request = new HttpRequestMessage(HttpMethod.Post, backend.LogoutUri);
+        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+        var result = await SendAsync<object>(request, "logout", cancellationToken, readBody: false);
+        return result is not null;
     }
 
     public async Task<LoginResponse?> RefreshTokenAsync(string refreshToken, CancellationToken cancellationToken = default)
     {
+        return await PostAsync<object, LoginResponse>(
+            backend.RefreshUri,
+            new { RefreshToken = refreshToken },
+            "refresh token",
+            email: null,
+            cancellationToken);
+    }
+
+    private async Task<TResponse?> PostAsync<TRequest, TResponse>(
+        Uri uri,
+        TRequest payload,
+        string operation,
+        string? email,
+        CancellationToken cancellationToken)
+    {
         try
         {
-            using var response = await httpClient.PostAsJsonAsync(backend.RefreshUri, new { RefreshToken = refreshToken }, cancellationToken);
+            using var response = await httpClient.PostAsJsonAsync(uri, payload, cancellationToken);
+
             if (!response.IsSuccessStatusCode)
             {
-                logger.LogWarning("Remote token refresh failed with status code {StatusCode}.", response.StatusCode);
-                return null;
+                logger.LogWarning(
+                    "Remote {Operation} failed for {Email} with status code {StatusCode}.",
+                    operation,
+                    email ?? "<n/a>",
+                    response.StatusCode);
+
+                return default;
             }
-            var result = await response.Content.ReadFromJsonAsync<LoginResponse>(cancellationToken: cancellationToken);
-            // Handle the new access token and refresh token as needed.
-            return result;
+
+            return await response.Content.ReadFromJsonAsync<TResponse>(cancellationToken: cancellationToken);
+        }
+        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+        {
+            logger.LogWarning(
+                "Remote {Operation} canceled for {Email}.",
+                operation,
+                email ?? "<n/a>");
+            return default;
         }
         catch (HttpRequestException ex)
         {
-            logger.LogError(ex, "Remote token refresh request failed.");
-            return null;
+            logger.LogError(
+                ex,
+                "Remote {Operation} request failed for {Email}.",
+                operation,
+                email ?? "<n/a>");
+            return default;
+        }
+    }
+
+    private async Task<TResponse?> SendAsync<TResponse>(
+        HttpRequestMessage request,
+        string operation,
+        CancellationToken cancellationToken,
+        bool readBody = true)
+    {
+        try
+        {
+            using var response = await httpClient.SendAsync(request, cancellationToken);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                logger.LogWarning(
+                    "Remote {Operation} failed with status code {StatusCode}.",
+                    operation,
+                    response.StatusCode);
+
+                return default;
+            }
+
+            if (!readBody)
+            {
+                return (TResponse?)(object?)new object();
+            }
+
+            return await response.Content.ReadFromJsonAsync<TResponse>(cancellationToken: cancellationToken);
+        }
+        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+        {
+            logger.LogWarning("Remote {Operation} was canceled.", operation);
+            return default;
+        }
+        catch (HttpRequestException ex)
+        {
+            logger.LogError(ex, "Remote {Operation} request failed.", operation);
+            return default;
         }
     }
 
@@ -164,32 +200,11 @@ public sealed class AuthApiClient(HttpClient httpClient, BackendApiEndpoints bac
             {
                 return titleElement.GetString()!;
             }
-
-            if (document.RootElement.TryGetProperty("errors", out var errorsElement) &&
-                errorsElement.ValueKind == JsonValueKind.Object)
-            {
-                foreach (var error in errorsElement.EnumerateObject())
-                {
-                    if (error.Value.ValueKind == JsonValueKind.Array)
-                    {
-                        foreach (var message in error.Value.EnumerateArray())
-                        {
-                            if (message.ValueKind == JsonValueKind.String && !string.IsNullOrWhiteSpace(message.GetString()))
-                            {
-                                return message.GetString()!;
-                            }
-                        }
-                    }
-                }
-            }
         }
         catch (JsonException)
         {
-            // Fall back to the raw response body when it is not JSON.
         }
 
-        return content;
+        return "Registration failed. Please try again.";
     }
-
-    
 }
