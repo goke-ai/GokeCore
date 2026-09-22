@@ -1,4 +1,6 @@
-﻿namespace Goke.Core.Models
+﻿using Goke.Core.Engines;
+
+namespace Goke.Core.Models
 {
     public class WeatherForecast
     {
@@ -21,8 +23,15 @@
         public double VisibilityKm { get; set; }
 
         public int AirQualityIndex { get; set; }
+        public string AirQualityLabel => WeatherForecastEngine.GetAqiLabel(AirQualityIndex);
         public int UVIndex { get; set; }
+        public string UVLabel => WeatherForecastEngine.GetUvLabel(UVIndex);
         public int RainProbabilityPercent { get; set; }
+
+        public int CloudCoverPercent { get; set; }
+        public double PrecipitationMm { get; set; }
+        public string PrecipitationType { get; set; } = "None";
+        public bool IsDaytime { get; set; }
 
         public double WindSpeedKph { get; set; }
         public double WindGustKph { get; set; }
