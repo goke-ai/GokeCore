@@ -51,15 +51,31 @@ namespace Goke.Core.Engines
 
         public static int ForecastPeriods => ForecastDays * (24 / ForecastIntervalInHour);
 
-        private static readonly CityWeatherProfile[] Cities = 
+        public static readonly CityWeatherProfile[] Cities =
         [
-            new("London", 51.5074, -0.1278, 8, 18, 68, 90, 8, 22, 1008, 1026, 10, 28, 20, 55,
+            new("Abuja", 9.0765, 7.3986, 22, 34, 45, 82, 7, 22, 1006, 1018, 7, 20, 35, 95,
             [
-                new("Cloudy", "☁️"),
-                new("Light Rain", "🌦️"),
-                new("Windy", "💨"),
-                new("Cool", "🧥"),
-                new("Overcast", "🌥️")
+                new("Sunny", "☀️"),
+                new("Hot", "🔥"),
+                new("Humid", "💧"),
+                new("Thunderstorms", "⛈️"),
+                new("Partly Cloudy", "⛅")
+            ]),
+            new("Cairo", 30.0444, 31.2357, 14, 38, 30, 60, 9, 30, 1007, 1020, 8, 24, 35, 110,
+            [
+                new("Sunny", "☀️"),
+                new("Hot", "🔥"),
+                new("Dry", "🏜️"),
+                new("Breezy", "🍃"),
+                new("Clear", "🌤️")
+            ]),
+            new("Kuala Lumpur", 3.1390, 101.6869, 24, 32, 78, 96, 5, 14, 1006, 1016, 6, 18, 35, 85,
+            [
+                new("Hot", "🔥"),
+                new("Humid", "💧"),
+                new("Thunderstorms", "⛈️"),
+                new("Rainy", "🌧️"),
+                new("Partly Cloudy", "⛅")
             ]),
             new("Lagos", 6.5244, 3.3792, 25, 33, 72, 95, 6, 16, 1007, 1018, 8, 24, 55, 120,
             [
@@ -69,13 +85,13 @@ namespace Goke.Core.Engines
                 new("Partly Cloudy", "⛅"),
                 new("Sunny", "☀️")
             ]),
-            new("Abuja", 9.0765, 7.3986, 22, 34, 45, 82, 7, 22, 1006, 1018, 7, 20, 35, 95,
+            new("London", 51.5074, -0.1278, 8, 18, 68, 90, 8, 22, 1008, 1026, 10, 28, 20, 55,
             [
-                new("Sunny", "☀️"),
-                new("Hot", "🔥"),
-                new("Humid", "💧"),
-                new("Thunderstorms", "⛈️"),
-                new("Partly Cloudy", "⛅")
+                new("Cloudy", "☁️"),
+                new("Light Rain", "🌦️"),
+                new("Windy", "💨"),
+                new("Cool", "🧥"),
+                new("Overcast", "🌥️")
             ]),
             new("Maiduguri", 11.8311, 13.1510, 24, 39, 20, 55, 8, 28, 1004, 1016, 8, 24, 40, 110,
             [
@@ -84,22 +100,6 @@ namespace Goke.Core.Engines
                 new("Dry", "🏜️"),
                 new("Windy", "💨"),
                 new("Clear", "🌤️")
-            ]),
-            new("Paris", 48.8566, 2.3522, 10, 22, 60, 86, 8, 24, 1009, 1025, 7, 22, 18, 48,
-            [
-                new("Mild", "🙂"),
-                new("Cloudy", "☁️"),
-                new("Sunny", "☀️"),
-                new("Breezy", "🍃"),
-                new("Light Rain", "🌦️")
-            ]),
-            new("Kuala Lumpur", 3.1390, 101.6869, 24, 32, 78, 96, 5, 14, 1006, 1016, 6, 18, 35, 85,
-            [
-                new("Hot", "🔥"),
-                new("Humid", "💧"),
-                new("Thunderstorms", "⛈️"),
-                new("Rainy", "🌧️"),
-                new("Partly Cloudy", "⛅")
             ]),
             new("New York", 40.7128, -74.0060, 6, 24, 48, 82, 8, 26, 1005, 1024, 9, 30, 15, 60,
             [
@@ -117,6 +117,14 @@ namespace Goke.Core.Engines
                 new("Snow Showers", "🌨️"),
                 new("Breezy", "🍃")
             ]),
+            new("Paris", 48.8566, 2.3522, 10, 22, 60, 86, 8, 24, 1009, 1025, 7, 22, 18, 48,
+            [
+                new("Mild", "🙂"),
+                new("Cloudy", "☁️"),
+                new("Sunny", "☀️"),
+                new("Breezy", "🍃"),
+                new("Light Rain", "🌦️")
+            ]),
             new("Rio de Janeiro", -22.9068, -43.1729, 22, 34, 65, 92, 7, 24, 1006, 1018, 7, 20, 28, 78,
             [
                 new("Sunny", "☀️"),
@@ -124,14 +132,6 @@ namespace Goke.Core.Engines
                 new("Humid", "💧"),
                 new("Showers", "🚿"),
                 new("Partly Cloudy", "⛅")
-            ]),
-            new("Cairo", 30.0444, 31.2357, 14, 38, 30, 60, 9, 30, 1007, 1020, 8, 24, 35, 110,
-            [
-                new("Sunny", "☀️"),
-                new("Hot", "🔥"),
-                new("Dry", "🏜️"),
-                new("Breezy", "🍃"),
-                new("Clear", "🌤️")
             ]),
             new("Sydney", -33.8688, 151.2093, 10, 27, 55, 85, 8, 26, 1008, 1024, 9, 28, 12, 45,
             [
@@ -325,366 +325,366 @@ namespace Goke.Core.Engines
                 new("Showers", "🚿"),
                 new("Thunderstorms", "⛈️")
             ]),
-new("Anchorage", 61.2181, -149.9003, -15, 18, 55, 88, 5, 20, 995, 1020, 8, 30, 8, 35,
-[
-    new("Cold", "🥶"),
-    new("Snow Showers", "🌨️"),
-    new("Cloudy", "☁️"),
-    new("Breezy", "🍃"),
-    new("Clear", "🌤️")
-]),
-new("Fairbanks", 64.8378, -147.7164, -28, 22, 50, 85, 6, 26, 994, 1022, 6, 24, 6, 28,
-[
-    new("Cold", "🥶"),
-    new("Snow Showers", "🌨️"),
-    new("Clear", "🌤️"),
-    new("Windy", "💨"),
-    new("Sunny", "☀️")
-]),
-new("Reykjavik", 64.1466, -21.9426, -4, 14, 60, 90, 6, 20, 996, 1018, 10, 34, 8, 30,
-[
-    new("Cold", "🥶"),
-    new("Cloudy", "☁️"),
-    new("Light Rain", "🌦️"),
-    new("Windy", "💨"),
-    new("Snow Showers", "🌨️")
-]),
-new("Nuuk", 64.1835, -51.7216, -16, 12, 55, 88, 5, 18, 992, 1018, 10, 32, 6, 24,
-[
-    new("Cold", "🥶"),
-    new("Snow Showers", "🌨️"),
-    new("Cloudy", "☁️"),
-    new("Windy", "💨"),
-    new("Clear", "🌤️")
-]),
-new("Yellowknife", 62.4540, -114.3718, -26, 20, 50, 84, 6, 24, 994, 1021, 7, 26, 6, 28,
-[
-    new("Cold", "🥶"),
-    new("Snow Showers", "🌨️"),
-    new("Sunny", "☀️"),
-    new("Windy", "💨"),
-    new("Clear", "🌤️")
-]),
-new("Iqaluit", 63.7467, -68.5170, -24, 12, 55, 88, 5, 18, 992, 1018, 9, 30, 6, 24,
-[
-    new("Cold", "🥶"),
-    new("Snow Showers", "🌨️"),
-    new("Cloudy", "☁️"),
-    new("Windy", "💨"),
-    new("Clear", "🌤️")
-]),
-new("Murmansk", 68.9585, 33.0827, -18, 16, 55, 88, 5, 20, 994, 1020, 8, 28, 8, 30,
-[
-    new("Cold", "🥶"),
-    new("Snow Showers", "🌨️"),
-    new("Cloudy", "☁️"),
-    new("Windy", "💨"),
-    new("Overcast", "🌥️")
-]),
-new("Novosibirsk", 55.0084, 82.9357, -24, 27, 45, 78, 7, 26, 995, 1022, 7, 24, 10, 40,
-[
-    new("Cold", "🥶"),
-    new("Snow Showers", "🌨️"),
-    new("Sunny", "☀️"),
-    new("Cloudy", "☁️"),
-    new("Clear", "🌤️")
-]),
-new("Yakutsk", 62.0355, 129.6755, -38, 24, 45, 78, 7, 28, 994, 1022, 6, 22, 6, 24,
-[
-    new("Cold", "🥶"),
-    new("Clear", "🌤️"),
-    new("Sunny", "☀️"),
-    new("Snow Showers", "🌨️"),
-    new("Windy", "💨")
-]),
-new("Vladivostok", 43.1155, 131.8855, -12, 25, 50, 82, 7, 24, 998, 1023, 8, 28, 10, 38,
-[
-    new("Cold", "🥶"),
-    new("Sunny", "☀️"),
-    new("Cloudy", "☁️"),
-    new("Windy", "💨"),
-    new("Clear", "🌤️")
-]),
-new("Tromso", 69.6492, 18.9553, -10, 15, 60, 90, 5, 18, 995, 1018, 10, 32, 8, 30,
-[
-    new("Cold", "🥶"),
-    new("Snow Showers", "🌨️"),
-    new("Cloudy", "☁️"),
-    new("Windy", "💨"),
-    new("Overcast", "🌥️")
-]),
-new("Helsinki", 60.1699, 24.9384, -10, 22, 55, 86, 6, 22, 998, 1022, 8, 26, 10, 38,
-[
-    new("Cold", "🥶"),
-    new("Cloudy", "☁️"),
-    new("Light Rain", "🌦️"),
-    new("Snow Showers", "🌨️"),
-    new("Breezy", "🍃")
-]),
-new("Lima", -12.0464, -77.0428, 15, 29, 65, 88, 6, 18, 1009, 1018, 6, 18, 16, 55,
-[
-    new("Mild", "🙂"),
-    new("Cloudy", "☁️"),
-    new("Sunny", "☀️"),
-    new("Partly Cloudy", "⛅"),
-    new("Showers", "🚿")
-]),
-new("Santiago", -33.4489, -70.6693, 3, 31, 35, 70, 8, 26, 1008, 1024, 7, 24, 16, 58,
-[
-    new("Sunny", "☀️"),
-    new("Clear", "🌤️"),
-    new("Mild", "🙂"),
-    new("Breezy", "🍃"),
-    new("Showers", "🚿")
-]),
-new("Manaus", -3.1190, -60.0217, 24, 33, 72, 96, 5, 16, 1004, 1013, 5, 16, 30, 85,
-[
-    new("Hot", "🔥"),
-    new("Humid", "💧"),
-    new("Thunderstorms", "⛈️"),
-    new("Rainy", "🌧️"),
-    new("Partly Cloudy", "⛅")
-]),
-new("Nairobi", -1.2864, 36.8172, 12, 28, 45, 80, 7, 22, 1009, 1022, 6, 18, 12, 48,
-[
-    new("Mild", "🙂"),
-    new("Sunny", "☀️"),
-    new("Partly Cloudy", "⛅"),
-    new("Showers", "🚿"),
-    new("Breezy", "🍃")
-]),
-new("Addis Ababa", 8.9806, 38.7578, 9, 25, 40, 78, 8, 24, 1010, 1024, 6, 18, 10, 42,
-[
-    new("Mild", "🙂"),
-    new("Sunny", "☀️"),
-    new("Partly Cloudy", "⛅"),
-    new("Showers", "🚿"),
-    new("Breezy", "🍃")
-]),
-new("Johannesburg", -26.2041, 28.0473, 4, 28, 35, 72, 8, 26, 1008, 1024, 7, 22, 12, 48,
-[
-    new("Sunny", "☀️"),
-    new("Clear", "🌤️"),
-    new("Breezy", "🍃"),
-    new("Partly Cloudy", "⛅"),
-    new("Showers", "🚿")
-]),
-new("Antananarivo", -18.8792, 47.5079, 10, 28, 45, 82, 7, 22, 1008, 1022, 6, 18, 10, 42,
-[
-    new("Mild", "🙂"),
-    new("Sunny", "☀️"),
-    new("Partly Cloudy", "⛅"),
-    new("Showers", "🚿"),
-    new("Breezy", "🍃")
-]),
-new("Port Louis", -20.1609, 57.5012, 20, 31, 65, 90, 7, 22, 1007, 1018, 7, 20, 14, 48,
-[
-    new("Warm", "🌤️"),
-    new("Humid", "💧"),
-    new("Showers", "🚿"),
-    new("Partly Cloudy", "⛅"),
-    new("Sunny", "☀️")
-]),
-new("Honolulu", 21.3069, -157.8583, 22, 31, 62, 86, 8, 24, 1008, 1018, 8, 22, 12, 40,
-[
-    new("Warm", "🌤️"),
-    new("Sunny", "☀️"),
-    new("Partly Cloudy", "⛅"),
-    new("Showers", "🚿"),
-    new("Breezy", "🍃")
-]),
-new("Suva", -18.1248, 178.4501, 22, 31, 72, 95, 6, 18, 1005, 1015, 7, 20, 12, 42,
-[
-    new("Warm", "🌤️"),
-    new("Humid", "💧"),
-    new("Showers", "🚿"),
-    new("Thunderstorms", "⛈️"),
-    new("Partly Cloudy", "⛅")
-]),
-new("Chicago", 41.8781, -87.6298, -12, 29, 45, 82, 7, 24, 1000, 1024, 9, 30, 14, 52,
-[
-    new("Cold", "🥶"),
-    new("Cloudy", "☁️"),
-    new("Sunny", "☀️"),
-    new("Windy", "💨"),
-    new("Snow Showers", "🌨️")
-]),
-new("Seattle", 47.6062, -122.3321, 2, 24, 60, 90, 7, 22, 1004, 1022, 7, 22, 10, 38,
-[
-    new("Cloudy", "☁️"),
-    new("Light Rain", "🌦️"),
-    new("Mild", "🙂"),
-    new("Breezy", "🍃"),
-    new("Overcast", "🌥️")
-]),
-new("San Francisco", 37.7749, -122.4194, 8, 24, 55, 82, 8, 24, 1008, 1022, 8, 24, 12, 42,
-[
-    new("Cool", "🧥"),
-    new("Cloudy", "☁️"),
-    new("Sunny", "☀️"),
-    new("Breezy", "🍃"),
-    new("Partly Cloudy", "⛅")
-]),
-new("Denver", 39.7392, -104.9903, -8, 29, 35, 70, 10, 30, 1005, 1025, 8, 26, 12, 48,
-[
-    new("Sunny", "☀️"),
-    new("Cold", "🥶"),
-    new("Clear", "🌤️"),
-    new("Windy", "💨"),
-    new("Snow Showers", "🌨️")
-]),
-new("Atlanta", 33.7490, -84.3880, 4, 32, 50, 85, 7, 24, 1004, 1022, 7, 22, 16, 58,
-[
-    new("Warm", "🌤️"),
-    new("Sunny", "☀️"),
-    new("Showers", "🚿"),
-    new("Thunderstorms", "⛈️"),
-    new("Partly Cloudy", "⛅")
-]),
-new("Washington, D.C.", 38.9072, -77.0369, 1, 31, 48, 84, 7, 24, 1003, 1023, 7, 24, 14, 55,
-[
-    new("Sunny", "☀️"),
-    new("Cloudy", "☁️"),
-    new("Showers", "🚿"),
-    new("Breezy", "🍃"),
-    new("Hot", "🔥")
-]),
-new("Phoenix", 33.4484, -112.0740, 10, 43, 18, 45, 10, 32, 1003, 1018, 6, 20, 28, 95,
-[
-    new("Sunny", "☀️"),
-    new("Hot", "🔥"),
-    new("Dry", "🏜️"),
-    new("Clear", "🌤️"),
-    new("Breezy", "🍃")
-]),
-new("Vancouver", 49.2827, -123.1207, 3, 23, 60, 90, 7, 22, 1003, 1021, 7, 22, 10, 36,
-[
-    new("Cloudy", "☁️"),
-    new("Light Rain", "🌦️"),
-    new("Mild", "🙂"),
-    new("Breezy", "🍃"),
-    new("Overcast", "🌥️")
-]),
-new("Calgary", 51.0447, -114.0719, -14, 26, 35, 72, 9, 28, 1002, 1023, 9, 30, 8, 35,
-[
-    new("Cold", "🥶"),
-    new("Sunny", "☀️"),
-    new("Clear", "🌤️"),
-    new("Windy", "💨"),
-    new("Snow Showers", "🌨️")
-]),
-new("Ottawa", 45.4215, -75.6972, -14, 27, 45, 82, 7, 24, 1001, 1024, 8, 26, 10, 40,
-[
-    new("Cold", "🥶"),
-    new("Cloudy", "☁️"),
-    new("Snow Showers", "🌨️"),
-    new("Sunny", "☀️"),
-    new("Breezy", "🍃")
-]),
-new("Tokyo", 35.6762, 139.6503, 2, 32, 50, 85, 7, 24, 1006, 1024, 7, 24, 18, 60,
-[
-    new("Sunny", "☀️"),
-    new("Cloudy", "☁️"),
-    new("Showers", "🚿"),
-    new("Humid", "💧"),
-    new("Partly Cloudy", "⛅")
-]),
-new("Seoul", 37.5665, 126.9780, -8, 31, 40, 78, 8, 26, 1004, 1024, 8, 26, 18, 65,
-[
-    new("Cold", "🥶"),
-    new("Sunny", "☀️"),
-    new("Cloudy", "☁️"),
-    new("Windy", "💨"),
-    new("Showers", "🚿")
-]),
-new("Singapore", 1.3521, 103.8198, 25, 33, 74, 96, 5, 14, 1006, 1014, 5, 16, 30, 80,
-[
-    new("Hot", "🔥"),
-    new("Humid", "💧"),
-    new("Thunderstorms", "⛈️"),
-    new("Rainy", "🌧️"),
-    new("Partly Cloudy", "⛅")
-]),
-new("Bangkok", 13.7563, 100.5018, 25, 36, 60, 90, 6, 18, 1004, 1014, 5, 18, 28, 85,
-[
-    new("Hot", "🔥"),
-    new("Humid", "💧"),
-    new("Thunderstorms", "⛈️"),
-    new("Sunny", "☀️"),
-    new("Partly Cloudy", "⛅")
-]),
-new("Jakarta", -6.2088, 106.8456, 24, 33, 72, 95, 5, 14, 1005, 1014, 5, 16, 32, 88,
-[
-    new("Hot", "🔥"),
-    new("Humid", "💧"),
-    new("Rainy", "🌧️"),
-    new("Thunderstorms", "⛈️"),
-    new("Partly Cloudy", "⛅")
-]),
-new("Manila", 14.5995, 120.9842, 24, 34, 70, 94, 6, 18, 1004, 1014, 6, 18, 28, 85,
-[
-    new("Hot", "🔥"),
-    new("Humid", "💧"),
-    new("Thunderstorms", "⛈️"),
-    new("Showers", "🚿"),
-    new("Partly Cloudy", "⛅")
-]),
-new("Delhi", 28.6139, 77.2090, 7, 42, 25, 70, 7, 24, 1003, 1018, 6, 20, 35, 110,
-[
-    new("Sunny", "☀️"),
-    new("Hot", "🔥"),
-    new("Dry", "🏜️"),
-    new("Cloudy", "☁️"),
-    new("Thunderstorms", "⛈️")
-]),
-new("Hong Kong", 22.3193, 114.1694, 16, 33, 65, 92, 6, 20, 1005, 1018, 7, 22, 24, 75,
-[
-    new("Humid", "💧"),
-    new("Sunny", "☀️"),
-    new("Showers", "🚿"),
-    new("Thunderstorms", "⛈️"),
-    new("Partly Cloudy", "⛅")
-]),
-new("Doha", 25.2854, 51.5310, 16, 41, 35, 75, 8, 28, 1004, 1018, 7, 22, 28, 92,
-[
-    new("Sunny", "☀️"),
-    new("Hot", "🔥"),
-    new("Dry", "🏜️"),
-    new("Clear", "🌤️"),
-    new("Breezy", "🍃")
-]),
-new("Kuwait City", 29.3759, 47.9774, 10, 44, 20, 55, 8, 30, 1002, 1018, 8, 24, 30, 100,
-[
-    new("Sunny", "☀️"),
-    new("Hot", "🔥"),
-    new("Dry", "🏜️"),
-    new("Windy", "💨"),
-    new("Clear", "🌤️")
-]),
-new("Muscat", 23.5880, 58.3829, 20, 39, 40, 78, 8, 26, 1004, 1017, 6, 20, 24, 82,
-[
-    new("Sunny", "☀️"),
-    new("Hot", "🔥"),
-    new("Humid", "💧"),
-    new("Clear", "🌤️"),
-    new("Breezy", "🍃")
-]),
-new("Amman", 31.9454, 35.9284, 4, 33, 30, 65, 8, 28, 1008, 1023, 7, 22, 14, 52,
-[
-    new("Sunny", "☀️"),
-    new("Clear", "🌤️"),
-    new("Mild", "🙂"),
-    new("Breezy", "🍃"),
-    new("Partly Cloudy", "⛅")
-]),
-new("Jeddah", 21.4858, 39.1925, 23, 39, 45, 80, 8, 28, 1004, 1015, 6, 20, 28, 95,
-[
-    new("Hot", "🔥"),
-    new("Sunny", "☀️"),
-    new("Humid", "💧"),
-    new("Clear", "🌤️"),
-    new("Breezy", "🍃")
-]),
+            new("Anchorage", 61.2181, -149.9003, -15, 18, 55, 88, 5, 20, 995, 1020, 8, 30, 8, 35,
+            [
+                new("Cold", "🥶"),
+                new("Snow Showers", "🌨️"),
+                new("Cloudy", "☁️"),
+                new("Breezy", "🍃"),
+                new("Clear", "🌤️")
+            ]),
+            new("Fairbanks", 64.8378, -147.7164, -28, 22, 50, 85, 6, 26, 994, 1022, 6, 24, 6, 28,
+            [
+                new("Cold", "🥶"),
+                new("Snow Showers", "🌨️"),
+                new("Clear", "🌤️"),
+                new("Windy", "💨"),
+                new("Sunny", "☀️")
+            ]),
+            new("Reykjavik", 64.1466, -21.9426, -4, 14, 60, 90, 6, 20, 996, 1018, 10, 34, 8, 30,
+            [
+                new("Cold", "🥶"),
+                new("Cloudy", "☁️"),
+                new("Light Rain", "🌦️"),
+                new("Windy", "💨"),
+                new("Snow Showers", "🌨️")
+            ]),
+            new("Nuuk", 64.1835, -51.7216, -16, 12, 55, 88, 5, 18, 992, 1018, 10, 32, 6, 24,
+            [
+                new("Cold", "🥶"),
+                new("Snow Showers", "🌨️"),
+                new("Cloudy", "☁️"),
+                new("Windy", "💨"),
+                new("Clear", "🌤️")
+            ]),
+            new("Yellowknife", 62.4540, -114.3718, -26, 20, 50, 84, 6, 24, 994, 1021, 7, 26, 6, 28,
+            [
+                new("Cold", "🥶"),
+                new("Snow Showers", "🌨️"),
+                new("Sunny", "☀️"),
+                new("Windy", "💨"),
+                new("Clear", "🌤️")
+            ]),
+            new("Iqaluit", 63.7467, -68.5170, -24, 12, 55, 88, 5, 18, 992, 1018, 9, 30, 6, 24,
+            [
+                new("Cold", "🥶"),
+                new("Snow Showers", "🌨️"),
+                new("Cloudy", "☁️"),
+                new("Windy", "💨"),
+                new("Clear", "🌤️")
+            ]),
+            new("Murmansk", 68.9585, 33.0827, -18, 16, 55, 88, 5, 20, 994, 1020, 8, 28, 8, 30,
+            [
+                new("Cold", "🥶"),
+                new("Snow Showers", "🌨️"),
+                new("Cloudy", "☁️"),
+                new("Windy", "💨"),
+                new("Overcast", "🌥️")
+            ]),
+            new("Novosibirsk", 55.0084, 82.9357, -24, 27, 45, 78, 7, 26, 995, 1022, 7, 24, 10, 40,
+            [
+                new("Cold", "🥶"),
+                new("Snow Showers", "🌨️"),
+                new("Sunny", "☀️"),
+                new("Cloudy", "☁️"),
+                new("Clear", "🌤️")
+            ]),
+            new("Yakutsk", 62.0355, 129.6755, -38, 24, 45, 78, 7, 28, 994, 1022, 6, 22, 6, 24,
+            [
+                new("Cold", "🥶"),
+                new("Clear", "🌤️"),
+                new("Sunny", "☀️"),
+                new("Snow Showers", "🌨️"),
+                new("Windy", "💨")
+            ]),
+            new("Vladivostok", 43.1155, 131.8855, -12, 25, 50, 82, 7, 24, 998, 1023, 8, 28, 10, 38,
+            [
+                new("Cold", "🥶"),
+                new("Sunny", "☀️"),
+                new("Cloudy", "☁️"),
+                new("Windy", "💨"),
+                new("Clear", "🌤️")
+            ]),
+            new("Tromso", 69.6492, 18.9553, -10, 15, 60, 90, 5, 18, 995, 1018, 10, 32, 8, 30,
+            [
+                new("Cold", "🥶"),
+                new("Snow Showers", "🌨️"),
+                new("Cloudy", "☁️"),
+                new("Windy", "💨"),
+                new("Overcast", "🌥️")
+            ]),
+            new("Helsinki", 60.1699, 24.9384, -10, 22, 55, 86, 6, 22, 998, 1022, 8, 26, 10, 38,
+            [
+                new("Cold", "🥶"),
+                new("Cloudy", "☁️"),
+                new("Light Rain", "🌦️"),
+                new("Snow Showers", "🌨️"),
+                new("Breezy", "🍃")
+            ]),
+            new("Lima", -12.0464, -77.0428, 15, 29, 65, 88, 6, 18, 1009, 1018, 6, 18, 16, 55,
+            [
+                new("Mild", "🙂"),
+                new("Cloudy", "☁️"),
+                new("Sunny", "☀️"),
+                new("Partly Cloudy", "⛅"),
+                new("Showers", "🚿")
+            ]),
+            new("Santiago", -33.4489, -70.6693, 3, 31, 35, 70, 8, 26, 1008, 1024, 7, 24, 16, 58,
+            [
+                new("Sunny", "☀️"),
+                new("Clear", "🌤️"),
+                new("Mild", "🙂"),
+                new("Breezy", "🍃"),
+                new("Showers", "🚿")
+            ]),
+            new("Manaus", -3.1190, -60.0217, 24, 33, 72, 96, 5, 16, 1004, 1013, 5, 16, 30, 85,
+            [
+                new("Hot", "🔥"),
+                new("Humid", "💧"),
+                new("Thunderstorms", "⛈️"),
+                new("Rainy", "🌧️"),
+                new("Partly Cloudy", "⛅")
+            ]),
+            new("Nairobi", -1.2864, 36.8172, 12, 28, 45, 80, 7, 22, 1009, 1022, 6, 18, 12, 48,
+            [
+                new("Mild", "🙂"),
+                new("Sunny", "☀️"),
+                new("Partly Cloudy", "⛅"),
+                new("Showers", "🚿"),
+                new("Breezy", "🍃")
+            ]),
+            new("Addis Ababa", 8.9806, 38.7578, 9, 25, 40, 78, 8, 24, 1010, 1024, 6, 18, 10, 42,
+            [
+                new("Mild", "🙂"),
+                new("Sunny", "☀️"),
+                new("Partly Cloudy", "⛅"),
+                new("Showers", "🚿"),
+                new("Breezy", "🍃")
+            ]),
+            new("Johannesburg", -26.2041, 28.0473, 4, 28, 35, 72, 8, 26, 1008, 1024, 7, 22, 12, 48,
+            [
+                new("Sunny", "☀️"),
+                new("Clear", "🌤️"),
+                new("Breezy", "🍃"),
+                new("Partly Cloudy", "⛅"),
+                new("Showers", "🚿")
+            ]),
+            new("Antananarivo", -18.8792, 47.5079, 10, 28, 45, 82, 7, 22, 1008, 1022, 6, 18, 10, 42,
+            [
+                new("Mild", "🙂"),
+                new("Sunny", "☀️"),
+                new("Partly Cloudy", "⛅"),
+                new("Showers", "🚿"),
+                new("Breezy", "🍃")
+            ]),
+            new("Port Louis", -20.1609, 57.5012, 20, 31, 65, 90, 7, 22, 1007, 1018, 7, 20, 14, 48,
+            [
+                new("Warm", "🌤️"),
+                new("Humid", "💧"),
+                new("Showers", "🚿"),
+                new("Partly Cloudy", "⛅"),
+                new("Sunny", "☀️")
+            ]),
+            new("Honolulu", 21.3069, -157.8583, 22, 31, 62, 86, 8, 24, 1008, 1018, 8, 22, 12, 40,
+            [
+                new("Warm", "🌤️"),
+                new("Sunny", "☀️"),
+                new("Partly Cloudy", "⛅"),
+                new("Showers", "🚿"),
+                new("Breezy", "🍃")
+            ]),
+            new("Suva", -18.1248, 178.4501, 22, 31, 72, 95, 6, 18, 1005, 1015, 7, 20, 12, 42,
+            [
+                new("Warm", "🌤️"),
+                new("Humid", "💧"),
+                new("Showers", "🚿"),
+                new("Thunderstorms", "⛈️"),
+                new("Partly Cloudy", "⛅")
+            ]),
+            new("Chicago", 41.8781, -87.6298, -12, 29, 45, 82, 7, 24, 1000, 1024, 9, 30, 14, 52,
+            [
+                new("Cold", "🥶"),
+                new("Cloudy", "☁️"),
+                new("Sunny", "☀️"),
+                new("Windy", "💨"),
+                new("Snow Showers", "🌨️")
+            ]),
+            new("Seattle", 47.6062, -122.3321, 2, 24, 60, 90, 7, 22, 1004, 1022, 7, 22, 10, 38,
+            [
+                new("Cloudy", "☁️"),
+                new("Light Rain", "🌦️"),
+                new("Mild", "🙂"),
+                new("Breezy", "🍃"),
+                new("Overcast", "🌥️")
+            ]),
+            new("San Francisco", 37.7749, -122.4194, 8, 24, 55, 82, 8, 24, 1008, 1022, 8, 24, 12, 42,
+            [
+                new("Cool", "🧥"),
+                new("Cloudy", "☁️"),
+                new("Sunny", "☀️"),
+                new("Breezy", "🍃"),
+                new("Partly Cloudy", "⛅")
+            ]),
+            new("Denver", 39.7392, -104.9903, -8, 29, 35, 70, 10, 30, 1005, 1025, 8, 26, 12, 48,
+            [
+                new("Sunny", "☀️"),
+                new("Cold", "🥶"),
+                new("Clear", "🌤️"),
+                new("Windy", "💨"),
+                new("Snow Showers", "🌨️")
+            ]),
+            new("Atlanta", 33.7490, -84.3880, 4, 32, 50, 85, 7, 24, 1004, 1022, 7, 22, 16, 58,
+            [
+                new("Warm", "🌤️"),
+                new("Sunny", "☀️"),
+                new("Showers", "🚿"),
+                new("Thunderstorms", "⛈️"),
+                new("Partly Cloudy", "⛅")
+            ]),
+            new("Washington, D.C.", 38.9072, -77.0369, 1, 31, 48, 84, 7, 24, 1003, 1023, 7, 24, 14, 55,
+            [
+                new("Sunny", "☀️"),
+                new("Cloudy", "☁️"),
+                new("Showers", "🚿"),
+                new("Breezy", "🍃"),
+                new("Hot", "🔥")
+            ]),
+            new("Phoenix", 33.4484, -112.0740, 10, 43, 18, 45, 10, 32, 1003, 1018, 6, 20, 28, 95,
+            [
+                new("Sunny", "☀️"),
+                new("Hot", "🔥"),
+                new("Dry", "🏜️"),
+                new("Clear", "🌤️"),
+                new("Breezy", "🍃")
+            ]),
+            new("Vancouver", 49.2827, -123.1207, 3, 23, 60, 90, 7, 22, 1003, 1021, 7, 22, 10, 36,
+            [
+                new("Cloudy", "☁️"),
+                new("Light Rain", "🌦️"),
+                new("Mild", "🙂"),
+                new("Breezy", "🍃"),
+                new("Overcast", "🌥️")
+            ]),
+            new("Calgary", 51.0447, -114.0719, -14, 26, 35, 72, 9, 28, 1002, 1023, 9, 30, 8, 35,
+            [
+                new("Cold", "🥶"),
+                new("Sunny", "☀️"),
+                new("Clear", "🌤️"),
+                new("Windy", "💨"),
+                new("Snow Showers", "🌨️")
+            ]),
+            new("Ottawa", 45.4215, -75.6972, -14, 27, 45, 82, 7, 24, 1001, 1024, 8, 26, 10, 40,
+            [
+                new("Cold", "🥶"),
+                new("Cloudy", "☁️"),
+                new("Snow Showers", "🌨️"),
+                new("Sunny", "☀️"),
+                new("Breezy", "🍃")
+            ]),
+            new("Tokyo", 35.6762, 139.6503, 2, 32, 50, 85, 7, 24, 1006, 1024, 7, 24, 18, 60,
+            [
+                new("Sunny", "☀️"),
+                new("Cloudy", "☁️"),
+                new("Showers", "🚿"),
+                new("Humid", "💧"),
+                new("Partly Cloudy", "⛅")
+            ]),
+            new("Seoul", 37.5665, 126.9780, -8, 31, 40, 78, 8, 26, 1004, 1024, 8, 26, 18, 65,
+            [
+                new("Cold", "🥶"),
+                new("Sunny", "☀️"),
+                new("Cloudy", "☁️"),
+                new("Windy", "💨"),
+                new("Showers", "🚿")
+            ]),
+            new("Singapore", 1.3521, 103.8198, 25, 33, 74, 96, 5, 14, 1006, 1014, 5, 16, 30, 80,
+            [
+                new("Hot", "🔥"),
+                new("Humid", "💧"),
+                new("Thunderstorms", "⛈️"),
+                new("Rainy", "🌧️"),
+                new("Partly Cloudy", "⛅")
+            ]),
+            new("Bangkok", 13.7563, 100.5018, 25, 36, 60, 90, 6, 18, 1004, 1014, 5, 18, 28, 85,
+            [
+                new("Hot", "🔥"),
+                new("Humid", "💧"),
+                new("Thunderstorms", "⛈️"),
+                new("Sunny", "☀️"),
+                new("Partly Cloudy", "⛅")
+            ]),
+            new("Jakarta", -6.2088, 106.8456, 24, 33, 72, 95, 5, 14, 1005, 1014, 5, 16, 32, 88,
+            [
+                new("Hot", "🔥"),
+                new("Humid", "💧"),
+                new("Rainy", "🌧️"),
+                new("Thunderstorms", "⛈️"),
+                new("Partly Cloudy", "⛅")
+            ]),
+            new("Manila", 14.5995, 120.9842, 24, 34, 70, 94, 6, 18, 1004, 1014, 6, 18, 28, 85,
+            [
+                new("Hot", "🔥"),
+                new("Humid", "💧"),
+                new("Thunderstorms", "⛈️"),
+                new("Showers", "🚿"),
+                new("Partly Cloudy", "⛅")
+            ]),
+            new("Delhi", 28.6139, 77.2090, 7, 42, 25, 70, 7, 24, 1003, 1018, 6, 20, 35, 110,
+            [
+                new("Sunny", "☀️"),
+                new("Hot", "🔥"),
+                new("Dry", "🏜️"),
+                new("Cloudy", "☁️"),
+                new("Thunderstorms", "⛈️")
+            ]),
+            new("Hong Kong", 22.3193, 114.1694, 16, 33, 65, 92, 6, 20, 1005, 1018, 7, 22, 24, 75,
+            [
+                new("Humid", "💧"),
+                new("Sunny", "☀️"),
+                new("Showers", "🚿"),
+                new("Thunderstorms", "⛈️"),
+                new("Partly Cloudy", "⛅")
+            ]),
+            new("Doha", 25.2854, 51.5310, 16, 41, 35, 75, 8, 28, 1004, 1018, 7, 22, 28, 92,
+            [
+                new("Sunny", "☀️"),
+                new("Hot", "🔥"),
+                new("Dry", "🏜️"),
+                new("Clear", "🌤️"),
+                new("Breezy", "🍃")
+            ]),
+            new("Kuwait City", 29.3759, 47.9774, 10, 44, 20, 55, 8, 30, 1002, 1018, 8, 24, 30, 100,
+            [
+                new("Sunny", "☀️"),
+                new("Hot", "🔥"),
+                new("Dry", "🏜️"),
+                new("Windy", "💨"),
+                new("Clear", "🌤️")
+            ]),
+            new("Muscat", 23.5880, 58.3829, 20, 39, 40, 78, 8, 26, 1004, 1017, 6, 20, 24, 82,
+            [
+                new("Sunny", "☀️"),
+                new("Hot", "🔥"),
+                new("Humid", "💧"),
+                new("Clear", "🌤️"),
+                new("Breezy", "🍃")
+            ]),
+            new("Amman", 31.9454, 35.9284, 4, 33, 30, 65, 8, 28, 1008, 1023, 7, 22, 14, 52,
+            [
+                new("Sunny", "☀️"),
+                new("Clear", "🌤️"),
+                new("Mild", "🙂"),
+                new("Breezy", "🍃"),
+                new("Partly Cloudy", "⛅")
+            ]),
+            new("Jeddah", 21.4858, 39.1925, 23, 39, 45, 80, 8, 28, 1004, 1015, 6, 20, 28, 95,
+            [
+                new("Hot", "🔥"),
+                new("Sunny", "☀️"),
+                new("Humid", "💧"),
+                new("Clear", "🌤️"),
+                new("Breezy", "🍃")
+            ]),
         ];
 
         public static DateTime AlignToForecastBoundary(DateTime utcDateTime)
@@ -693,10 +693,13 @@ new("Jeddah", 21.4858, 39.1925, 23, 39, 45, 80, 8, 28, 1004, 1015, 6, 20, 28, 95
             return new DateTime(ticks, DateTimeKind.Utc);
         }
 
-        public static WeatherForecast[] BuildForecasts(DateTime startDateUtc, int periods, params string[] cities) => Cities.Where(c => cities == null || cities.Length == 0 || cities.Contains(c.City)).SelectMany(city =>
-                                                                                                               Enumerable.Range(0, periods)
-                                                                                                                   .Select(index => CreateForecast(city, startDateUtc.AddTicks(ForecastInterval.Ticks * index))))
-                .ToArray();
+        public static WeatherForecast[] BuildForecasts(DateTime startDateUtc,
+                                                       int periods,
+                                                       params string[] cities) 
+            => Cities.Where(c => cities == null || cities.Length == 0 || cities.Contains(c.City))
+                     .SelectMany(city => Enumerable.Range(0, periods)
+                     .Select(index => CreateForecast(city, startDateUtc.AddTicks(ForecastInterval.Ticks * index))))
+                     .ToArray();
 
         private static double CalculateDewPointC(int temperatureC, int humidityPercent) =>
             Math.Round(temperatureC - ((100d - humidityPercent) / 5d), 1);
@@ -1200,64 +1203,64 @@ new("Jeddah", 21.4858, 39.1925, 23, 39, 45, 80, 8, 28, 1004, 1015, 6, 20, 28, 95
             return city.Summaries[0];
         }
 
-private static int GetSeasonAdjustment(string city, int month) =>
-    city switch
-    {
-        "London" => month is 12 or 1 or 2 ? -3 : month is >= 6 and <= 8 ? 4 : 0,
-        "Paris" => month is 12 or 1 or 2 ? -4 : month is >= 6 and <= 8 ? 5 : 0,
-        "New York" => month is 12 or 1 or 2 ? -8 : month is >= 6 and <= 8 ? 7 : 0,
-        "Toronto" => month is 12 or 1 or 2 ? -10 : month is >= 6 and <= 8 ? 6 : 0,
-        "Montreal" => month is 12 or 1 or 2 ? -12 : month is >= 6 and <= 8 ? 6 : 0,
-        "Anchorage" => month is 12 or 1 or 2 ? -14 : month is >= 6 and <= 8 ? 5 : 0,
-        "Fairbanks" => month is 12 or 1 or 2 ? -18 : month is >= 6 and <= 8 ? 8 : 0,
-        "Yellowknife" => month is 12 or 1 or 2 ? -18 : month is >= 6 and <= 8 ? 8 : 0,
-        "Iqaluit" or "Nuuk" => month is 12 or 1 or 2 ? -16 : month is >= 6 and <= 8 ? 4 : 0,
-        "Oslo" => month is 12 or 1 or 2 ? -8 : month is >= 6 and <= 8 ? 4 : 0,
-        "Reykjavik" => month is 12 or 1 or 2 ? -6 : month is >= 6 and <= 8 ? 2 : 0,
-        "Cardiff" or "Edinburgh" or "Dublin" or "Belfast" => month is 12 or 1 or 2 ? -4 : month is >= 6 and <= 8 ? 3 : 0,
-        "Helsinki" => month is 12 or 1 or 2 ? -10 : month is >= 6 and <= 8 ? 5 : 0,
-        "Tromso" or "Murmansk" => month is 12 or 1 or 2 ? -12 : month is >= 6 and <= 8 ? 4 : 0,
-        "Moscow" => month is 12 or 1 or 2 ? -12 : month is >= 6 and <= 8 ? 5 : 0,
-        "Novosibirsk" => month is 12 or 1 or 2 ? -18 : month is >= 6 and <= 8 ? 8 : 0,
-        "Yakutsk" => month is 12 or 1 or 2 ? -22 : month is >= 6 and <= 8 ? 8 : 0,
-        "Vladivostok" => month is 12 or 1 or 2 ? -10 : month is >= 6 and <= 8 ? 6 : 0,
-        "Beijing" => month is 12 or 1 or 2 ? -8 : month is >= 6 and <= 8 ? 8 : 0,
-        "Madrid" => month is 12 or 1 or 2 ? -3 : month is >= 6 and <= 8 ? 8 : 0,
-        "Los Angeles" => month is 12 or 1 or 2 ? 1 : month is >= 6 and <= 8 ? 4 : 0,
-        "Dallas" => month is 12 or 1 or 2 ? -2 : month is >= 6 and <= 8 ? 8 : 0,
-        "Miami" => month is 12 or 1 or 2 ? 2 : month is >= 6 and <= 8 ? 3 : 0,
-        "Mexico City" => month is 12 or 1 or 2 ? -1 : month is >= 4 and <= 6 ? 3 : 0,
-        "Cairo" or "Dubai" or "Riyadh" or "Tehran" or "Jerusalem" => month is 12 or 1 or 2 ? -2 : month is >= 6 and <= 8 ? 7 : 0,
-        "Mumbai" => month is >= 6 and <= 9 ? -1 : month is >= 3 and <= 5 ? 2 : 0,
-        "Bogota" => 0,
-        "Caracas" or "Kingston" or "Lagos" or "Kuala Lumpur" => month is >= 6 and <= 9 ? -1 : 1,
-        "Manaus" => month is >= 6 and <= 9 ? -1 : month is 12 or 1 or 2 ? 1 : 0,
-        "Nairobi" or "Addis Ababa" => month is >= 6 and <= 9 ? -1 : month is >= 1 and <= 3 ? 1 : 0,
-        "Rio de Janeiro" or "Sydney" or "Cape Town" or "Buenos Aires" => month is >= 6 and <= 8 ? -4 : month is 12 or 1 or 2 ? 5 : 0,
-        "Lima" => month is >= 6 and <= 8 ? -2 : month is 12 or 1 or 2 ? 3 : 0,
-        "Santiago" => month is >= 6 and <= 8 ? -5 : month is 12 or 1 or 2 ? 6 : 0,
-        "Johannesburg" or "Antananarivo" => month is >= 6 and <= 8 ? -4 : month is 12 or 1 or 2 ? 4 : 0,
-        "Port Louis" or "Suva" => month is >= 6 and <= 8 ? -2 : month is 12 or 1 or 2 ? 3 : 0,
-        "Honolulu" => month is 12 or 1 or 2 ? -1 : month is >= 7 and <= 9 ? 2 : 0,
-        "Abuja" => month is >= 6 and <= 9 ? -2 : month is >= 3 and <= 5 ? 2 : 0,
-        "Maiduguri" => month is 12 or 1 or 2 ? -1 : month is >= 3 and <= 6 ? 4 : month is >= 7 and <= 9 ? -2 : 1,
-"Chicago" => month is 12 or 1 or 2 ? -10 : month is >= 6 and <= 8 ? 6 : 0,
-"Seattle" or "Vancouver" => month is 12 or 1 or 2 ? -2 : month is >= 6 and <= 8 ? 3 : 0,
-"San Francisco" => month is 12 or 1 or 2 ? 0 : month is >= 8 and <= 10 ? 2 : 0,
-"Denver" or "Calgary" => month is 12 or 1 or 2 ? -10 : month is >= 6 and <= 8 ? 6 : 0,
-"Atlanta" or "Washington, D.C." => month is 12 or 1 or 2 ? -4 : month is >= 6 and <= 8 ? 6 : 0,
-"Phoenix" => month is 12 or 1 or 2 ? 2 : month is >= 6 and <= 8 ? 8 : 0,
-"Ottawa" => month is 12 or 1 or 2 ? -12 : month is >= 6 and <= 8 ? 6 : 0,
-"Tokyo" or "Seoul" => month is 12 or 1 or 2 ? -8 : month is >= 6 and <= 8 ? 7 : 0,
-"Singapore" or "Jakarta" => month is >= 6 and <= 9 ? -1 : 1,
-"Bangkok" or "Manila" => month is >= 3 and <= 5 ? 2 : month is >= 6 and <= 10 ? -1 : 0,
-"Delhi" => month is 12 or 1 or 2 ? -5 : month is >= 4 and <= 6 ? 8 : month is >= 7 and <= 9 ? -2 : 0,
-"Hong Kong" => month is 12 or 1 or 2 ? -2 : month is >= 6 and <= 9 ? 3 : 0,
-"Doha" or "Kuwait City" => month is 12 or 1 or 2 ? -2 : month is >= 6 and <= 8 ? 8 : 0,
-"Muscat" or "Jeddah" => month is 12 or 1 or 2 ? 0 : month is >= 6 and <= 8 ? 6 : 0,
-"Amman" => month is 12 or 1 or 2 ? -3 : month is >= 6 and <= 8 ? 6 : 0,
-        _ => 0
-    };
+        private static int GetSeasonAdjustment(string city, int month) =>
+            city switch
+            {
+                "London" => month is 12 or 1 or 2 ? -3 : month is >= 6 and <= 8 ? 4 : 0,
+                "Paris" => month is 12 or 1 or 2 ? -4 : month is >= 6 and <= 8 ? 5 : 0,
+                "New York" => month is 12 or 1 or 2 ? -8 : month is >= 6 and <= 8 ? 7 : 0,
+                "Toronto" => month is 12 or 1 or 2 ? -10 : month is >= 6 and <= 8 ? 6 : 0,
+                "Montreal" => month is 12 or 1 or 2 ? -12 : month is >= 6 and <= 8 ? 6 : 0,
+                "Anchorage" => month is 12 or 1 or 2 ? -14 : month is >= 6 and <= 8 ? 5 : 0,
+                "Fairbanks" => month is 12 or 1 or 2 ? -18 : month is >= 6 and <= 8 ? 8 : 0,
+                "Yellowknife" => month is 12 or 1 or 2 ? -18 : month is >= 6 and <= 8 ? 8 : 0,
+                "Iqaluit" or "Nuuk" => month is 12 or 1 or 2 ? -16 : month is >= 6 and <= 8 ? 4 : 0,
+                "Oslo" => month is 12 or 1 or 2 ? -8 : month is >= 6 and <= 8 ? 4 : 0,
+                "Reykjavik" => month is 12 or 1 or 2 ? -6 : month is >= 6 and <= 8 ? 2 : 0,
+                "Cardiff" or "Edinburgh" or "Dublin" or "Belfast" => month is 12 or 1 or 2 ? -4 : month is >= 6 and <= 8 ? 3 : 0,
+                "Helsinki" => month is 12 or 1 or 2 ? -10 : month is >= 6 and <= 8 ? 5 : 0,
+                "Tromso" or "Murmansk" => month is 12 or 1 or 2 ? -12 : month is >= 6 and <= 8 ? 4 : 0,
+                "Moscow" => month is 12 or 1 or 2 ? -12 : month is >= 6 and <= 8 ? 5 : 0,
+                "Novosibirsk" => month is 12 or 1 or 2 ? -18 : month is >= 6 and <= 8 ? 8 : 0,
+                "Yakutsk" => month is 12 or 1 or 2 ? -22 : month is >= 6 and <= 8 ? 8 : 0,
+                "Vladivostok" => month is 12 or 1 or 2 ? -10 : month is >= 6 and <= 8 ? 6 : 0,
+                "Beijing" => month is 12 or 1 or 2 ? -8 : month is >= 6 and <= 8 ? 8 : 0,
+                "Madrid" => month is 12 or 1 or 2 ? -3 : month is >= 6 and <= 8 ? 8 : 0,
+                "Los Angeles" => month is 12 or 1 or 2 ? 1 : month is >= 6 and <= 8 ? 4 : 0,
+                "Dallas" => month is 12 or 1 or 2 ? -2 : month is >= 6 and <= 8 ? 8 : 0,
+                "Miami" => month is 12 or 1 or 2 ? 2 : month is >= 6 and <= 8 ? 3 : 0,
+                "Mexico City" => month is 12 or 1 or 2 ? -1 : month is >= 4 and <= 6 ? 3 : 0,
+                "Cairo" or "Dubai" or "Riyadh" or "Tehran" or "Jerusalem" => month is 12 or 1 or 2 ? -2 : month is >= 6 and <= 8 ? 7 : 0,
+                "Mumbai" => month is >= 6 and <= 9 ? -1 : month is >= 3 and <= 5 ? 2 : 0,
+                "Bogota" => 0,
+                "Caracas" or "Kingston" or "Lagos" or "Kuala Lumpur" => month is >= 6 and <= 9 ? -1 : 1,
+                "Manaus" => month is >= 6 and <= 9 ? -1 : month is 12 or 1 or 2 ? 1 : 0,
+                "Nairobi" or "Addis Ababa" => month is >= 6 and <= 9 ? -1 : month is >= 1 and <= 3 ? 1 : 0,
+                "Rio de Janeiro" or "Sydney" or "Cape Town" or "Buenos Aires" => month is >= 6 and <= 8 ? -4 : month is 12 or 1 or 2 ? 5 : 0,
+                "Lima" => month is >= 6 and <= 8 ? -2 : month is 12 or 1 or 2 ? 3 : 0,
+                "Santiago" => month is >= 6 and <= 8 ? -5 : month is 12 or 1 or 2 ? 6 : 0,
+                "Johannesburg" or "Antananarivo" => month is >= 6 and <= 8 ? -4 : month is 12 or 1 or 2 ? 4 : 0,
+                "Port Louis" or "Suva" => month is >= 6 and <= 8 ? -2 : month is 12 or 1 or 2 ? 3 : 0,
+                "Honolulu" => month is 12 or 1 or 2 ? -1 : month is >= 7 and <= 9 ? 2 : 0,
+                "Abuja" => month is >= 6 and <= 9 ? -2 : month is >= 3 and <= 5 ? 2 : 0,
+                "Maiduguri" => month is 12 or 1 or 2 ? -1 : month is >= 3 and <= 6 ? 4 : month is >= 7 and <= 9 ? -2 : 1,
+                "Chicago" => month is 12 or 1 or 2 ? -10 : month is >= 6 and <= 8 ? 6 : 0,
+                "Seattle" or "Vancouver" => month is 12 or 1 or 2 ? -2 : month is >= 6 and <= 8 ? 3 : 0,
+                "San Francisco" => month is 12 or 1 or 2 ? 0 : month is >= 8 and <= 10 ? 2 : 0,
+                "Denver" or "Calgary" => month is 12 or 1 or 2 ? -10 : month is >= 6 and <= 8 ? 6 : 0,
+                "Atlanta" or "Washington, D.C." => month is 12 or 1 or 2 ? -4 : month is >= 6 and <= 8 ? 6 : 0,
+                "Phoenix" => month is 12 or 1 or 2 ? 2 : month is >= 6 and <= 8 ? 8 : 0,
+                "Ottawa" => month is 12 or 1 or 2 ? -12 : month is >= 6 and <= 8 ? 6 : 0,
+                "Tokyo" or "Seoul" => month is 12 or 1 or 2 ? -8 : month is >= 6 and <= 8 ? 7 : 0,
+                "Singapore" or "Jakarta" => month is >= 6 and <= 9 ? -1 : 1,
+                "Bangkok" or "Manila" => month is >= 3 and <= 5 ? 2 : month is >= 6 and <= 10 ? -1 : 0,
+                "Delhi" => month is 12 or 1 or 2 ? -5 : month is >= 4 and <= 6 ? 8 : month is >= 7 and <= 9 ? -2 : 0,
+                "Hong Kong" => month is 12 or 1 or 2 ? -2 : month is >= 6 and <= 9 ? 3 : 0,
+                "Doha" or "Kuwait City" => month is 12 or 1 or 2 ? -2 : month is >= 6 and <= 8 ? 8 : 0,
+                "Muscat" or "Jeddah" => month is 12 or 1 or 2 ? 0 : month is >= 6 and <= 8 ? 6 : 0,
+                "Amman" => month is 12 or 1 or 2 ? -3 : month is >= 6 and <= 8 ? 6 : 0,
+                _ => 0
+            };
 
         private static DateTime GetWeatherSystemStart(DateTime utcDateTime)
         {
