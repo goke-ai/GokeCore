@@ -1,4 +1,4 @@
-namespace Goke.Core.Models.Map;
+namespace Goke.Core.Map;
 
 public sealed class DirectionRouteMarker
 {
