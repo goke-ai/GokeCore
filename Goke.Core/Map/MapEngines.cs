@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Goke.Core.Map
 {
-    public class MapEngines
+    public partial class MapEngines
     {
         public static List<Location> LOCATIONS => [
             new Location { Latitude = 40.712776, Longitude = -74.005974, Name = "New York" },
@@ -48,5 +48,8 @@ namespace Goke.Core.Map
             new Location { Latitude = -12.046374, Longitude = -77.042793, Name = "Lima" },
             new Location { Latitude = 19.432608, Longitude = -99.133209, Name = "Mexico City" },
         ];
+
+        
+
     }
 }
