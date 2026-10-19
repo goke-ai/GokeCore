@@ -698,7 +698,7 @@ namespace Goke.Core.Engines
                                                        params string[] cities) 
             => Cities.Where(c => cities == null || cities.Length == 0 || cities.Contains(c.City))
                      .SelectMany(city => Enumerable.Range(0, periods)
-                     .Select(index => CreateForecast(city, startDateUtc.AddTicks(ForecastInterval.Ticks * index))))
+                     .Select(index => CreateForecast(city, startDateUtc.AddDays(-1).AddTicks(ForecastInterval.Ticks * index))))
                      .ToArray();
 
         private static double CalculateDewPointC(int temperatureC, int humidityPercent) =>
