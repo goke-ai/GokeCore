@@ -697,10 +697,10 @@ namespace Goke.Core.Engines
                                                        int periods,
                                                        params string[] cities)
         {
-            var previousDateUtc = startDateUtc.AddDays(-1);
+            // var previousDateUtc = startDateUtc.AddDays(-1);
             return [.. Cities.Where(c => cities == null || cities.Length == 0 || cities.Contains(c.City))
                              .SelectMany(city => Enumerable.Range(0, periods)
-                             .Select(index => CreateForecast(city, previousDateUtc.AddTicks(ForecastInterval.Ticks * index))))];
+                             .Select(index => CreateForecast(city, startDateUtc.AddTicks(ForecastInterval.Ticks * index))))];
         }
 
         private static double CalculateDewPointC(int temperatureC, int humidityPercent) =>
