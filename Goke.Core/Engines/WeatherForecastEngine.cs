@@ -695,11 +695,13 @@ namespace Goke.Core.Engines
 
         public static WeatherForecast[] BuildForecasts(DateTime startDateUtc,
                                                        int periods,
-                                                       params string[] cities) 
-            => Cities.Where(c => cities == null || cities.Length == 0 || cities.Contains(c.City))
-                     .SelectMany(city => Enumerable.Range(0, periods)
-                     .Select(index => CreateForecast(city, startDateUtc.AddTicks(ForecastInterval.Ticks * index))))
-                     .ToArray();
+                                                       params string[] cities)
+        {
+            // var previousDateUtc = startDateUtc.AddDays(-1);
+            return [.. Cities.Where(c => cities == null || cities.Length == 0 || cities.Contains(c.City))
+                             .SelectMany(city => Enumerable.Range(0, periods)
+                             .Select(index => CreateForecast(city, startDateUtc.AddTicks(ForecastInterval.Ticks * index))))];
+        }
 
         private static double CalculateDewPointC(int temperatureC, int humidityPercent) =>
             Math.Round(temperatureC - ((100d - humidityPercent) / 5d), 1);
