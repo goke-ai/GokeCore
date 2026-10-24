@@ -1,7 +1,6 @@
-﻿using Goke.Core.Authentication;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 
-namespace Goke.Core.Authorization
+namespace Goke.Core.Authentication
 {
     public class ClaimBuilder
     {

@@ -1,8 +1,6 @@
-﻿using Goke.Core.Authentication;
-using Goke.Core.Authorization;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 
-namespace Goke.Core.Security;
+namespace Goke.Core.Authentication;
 
 public sealed class AuthenticatedUserPrincipalFactory : IAuthenticatedUserPrincipalFactory
 {
