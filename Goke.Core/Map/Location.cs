@@ -1,6 +1,4 @@
-﻿using Goke.Core.Engines;
-
-namespace Goke.Core.Map
+﻿namespace Goke.Core.Map
 {
     public class Location
     {
